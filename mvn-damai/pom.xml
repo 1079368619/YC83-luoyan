@@ -12,4 +12,16 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
+	
+	<dependencies>
+		<!-- https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->
+		<dependency>
+   			<groupId>commons-beanutils</groupId>
+    		<artifactId>commons-beanutils</artifactId>
+    		<version>1.9.3</version>
+		</dependency>
+		
+		
+	</dependencies>
+	
 </project>
