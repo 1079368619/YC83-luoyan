@@ -12,4 +12,6 @@ public interface Servlet {
 
 	public void service(HttpServletRequest request, HttpServletResponse response)
 		throws IOException;
+	
+	//
 }
