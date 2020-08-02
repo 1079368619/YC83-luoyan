@@ -8,7 +8,8 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.junit.jupiter.api.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.yc.damai.po.DmProduct;
 
@@ -28,6 +29,7 @@ public class DmProductMapperTest {
 		//
 		List<DmProduct> list = session.selectList("com.yc.damai.dao.ProductMapper.selectAll");
 		
+		Assert.assertEquals(true, list.size()>0);
 		/**
 		for(DmProduct dp : list) {
 			System.out.println(dp);
