@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   	<!-- namespace是当前接口的命名空间 -->
-	<mapper namespace="com.yc.damai.dao.ProductMapper">
+	<mapper namespace="com.yc.damai.dao.DmProductMapper">
 		
 		<!-- 自定义的字段映射 -->
 		<resultMap type="com.yc.damai.po.DmProduct" id="rmdp">
@@ -24,6 +24,11 @@
   		<select id="selectAll" resultMap="rmdp">
     		select * from dm_product
   		</select>
+  		
+  		<select id="selectById" resultMap="rmdp">
+    		select * from dm_product where id = #{id}
+  		</select>
+  		
 
   		<!-- 作业: 请完成商品表信息增删改查(根据id查) -->
   		<!-- 参数传入格式: #{实体对象的属性名} -->

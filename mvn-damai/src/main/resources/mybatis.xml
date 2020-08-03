@@ -50,8 +50,14 @@
   	</environments>
   	
   	<!-- 映射文件配置 -->
+  	<!-- 
+  		org.apache.ibatis.binding.BindingException: 
+  		Type interface com.yc.damai.dao.DmProductMapper is not known to the MapperRegistry.
+  		注册接口
+  	 -->
 	<mappers>
     	<mapper resource="com/yc/damai/dao/ProductMapper.xml"/>
     	<mapper resource="com/yc/damai/dao/CategoryMapper.xml"/>
+    	<mapper resource="com/yc/damai/dao/OrderItemMapper.xml"/>
 	</mappers>
 </configuration>

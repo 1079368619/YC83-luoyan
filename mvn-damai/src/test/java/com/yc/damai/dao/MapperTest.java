@@ -12,6 +12,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.yc.damai.po.DmCategory;
+import com.yc.damai.po.DmOrderitem;
 import com.yc.damai.po.DmProduct;
 
 public class MapperTest {
@@ -94,6 +95,27 @@ public class MapperTest {
 		session.close();
 	}
 	
+	@Test
+	public void test5() throws IOException {
+		/**
+		 * 1.
+		 * 2.
+		 */
+		DmOrderitemMapper dom = session.getMapper(DmOrderitemMapper.class);
+		DmProductMapper dpm = session.getMapper(DmProductMapper.class);
+		DmOrderitem doi = dom.selectById(59);
+		DmProduct dp = dpm.selectById(doi.getPid());
+		System.out.println(dp);
+		session.close();
+	}
+	
+	
+	
+	
+	
+	
+	
+	/**
 	//作业: 请完成商品表信息增删改查(根据id查)
 	@Test
 	public void test5() throws IOException {
@@ -139,4 +161,5 @@ public class MapperTest {
 		//不commit，会话会在关闭自动回滚
 		session.commit();
 	}
+	*/
 }
