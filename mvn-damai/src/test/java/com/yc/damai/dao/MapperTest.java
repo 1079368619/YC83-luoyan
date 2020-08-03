@@ -98,13 +98,21 @@ public class MapperTest {
 	@Test
 	public void test5() throws IOException {
 		/**
-		 * 1.
-		 * 2.
+		 * 1.先查出一个订单明细记录
+		 * 2.查出该订单明细对应的商品信息
 		 */
+		/**
 		DmOrderitemMapper dom = session.getMapper(DmOrderitemMapper.class);
 		DmProductMapper dpm = session.getMapper(DmProductMapper.class);
 		DmOrderitem doi = dom.selectById(59);
 		DmProduct dp = dpm.selectById(doi.getPid());
+		*/
+		
+		DmOrderitemMapper dom = session.getMapper(DmOrderitemMapper.class);
+		DmOrderitem doi = dom.selectById(59);
+		//
+		DmProduct dp = doi.getDmProduct();//
+		
 		System.out.println(dp);
 		session.close();
 	}
