@@ -14,7 +14,7 @@ import org.junit.Test;
 import com.yc.damai.po.DmCategory;
 import com.yc.damai.po.DmProduct;
 
-public class DmProductMapperTest {
+public class MapperTest {
 
 	private SqlSession session;
 	
@@ -58,31 +58,40 @@ public class DmProductMapperTest {
 		DmCategory dc =new DmCategory();
 		dc.setCname("测试分类");
 		dc.setPid(1);
-		session.insert("com.yc.damai.dao.ProductMapper.insert", dc);
+		//session.insert("com.yc.damai.dao.ProductMapper.insert", dc);
+		DmCategoryMapper mapper = session.getMapper(DmCategoryMapper.class);
+		mapper.insert(dc);
 		//不commit，会话会在关闭自动回滚
 		session.commit();
+		session.close();
 	}
 	
 	@Test
 	public void test3() throws IOException {
 		DmCategory dc =new DmCategory();
-		dc.setId(44);
+		dc.setId(45);
 		dc.setCname("修改后的测试分类");
 		dc.setPid(1);
-		session.update("com.yc.damai.dao.ProductMapper.update", dc);
+		//session.update("com.yc.damai.dao.ProductMapper.update", dc);
+		DmCategoryMapper mapper = session.getMapper(DmCategoryMapper.class);
+		mapper.update(dc);
 		//不commit，会话会在关闭自动回滚
 		session.commit();
+		session.close();
 	}
 	
 	@Test
 	public void test4() throws IOException {
-		DmCategory dc =new DmCategory();
+		/**DmCategory dc =new DmCategory();
 		dc.setId(44);
 		dc.setCname("修改后的测试分类");
-		dc.setPid(1);
-		session.delete("com.yc.damai.dao.ProductMapper.delete", dc);
+		dc.setPid(1);*/
+		//session.delete("com.yc.damai.dao.ProductMapper.delete", dc);
+		DmCategoryMapper mapper = session.getMapper(DmCategoryMapper.class);
+		mapper.delete(45);
 		//不commit，会话会在关闭自动回滚
 		session.commit();
+		session.close();
 	}
 	
 	//作业: 请完成商品表信息增删改查(根据id查)
