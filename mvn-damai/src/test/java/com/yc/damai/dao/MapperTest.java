@@ -46,11 +46,11 @@ public class MapperTest {
 		 * list.size()>0 是实际值
 		 */
 		Assert.assertEquals(true, list.size()>0);
-		/**
+		
 		for(DmProduct dp : list) {
 			System.out.println(dp);
 		}
-		*/
+		
 	}
 
 	@Test
