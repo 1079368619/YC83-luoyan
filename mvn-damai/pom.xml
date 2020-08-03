@@ -70,7 +70,6 @@
     		<version>1.7.21</version>
 		</dependency>
 		
-
 		<!-- junit测试框架依赖 -->
 		<dependency>
 			<groupId>junit</groupId>
