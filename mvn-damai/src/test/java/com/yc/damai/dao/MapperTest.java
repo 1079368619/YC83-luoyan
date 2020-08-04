@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import com.yc.damai.po.DmCategory;
 import com.yc.damai.po.DmOrderitem;
+import com.yc.damai.po.DmOrders;
 import com.yc.damai.po.DmProduct;
 
 public class MapperTest {
@@ -117,8 +118,99 @@ public class MapperTest {
 		session.close();
 	}
 	
+	@Test
+	public void test6() throws IOException {
+		DmCategoryMapper mapper = session.getMapper(DmCategoryMapper.class);
+		List<DmCategory> dcList = mapper.selectAll();
+		System.out.println("================1================");
+		DmCategory dc = dcList.get(1);
+		System.out.println("================2================");
+		Assert.assertEquals("鞋靴箱包", dc.getCname());
+		System.out.println("================3================");
+		Assert.assertEquals(6, dc.getChildren().size());
+		System.out.println("================4================");
+		
+	}
 	
+	@Test
+	public void test7() throws IOException {
+		DmProductMapper mapper = session.getMapper(DmProductMapper.class);
+		System.out.println("================1================");
+		mapper.selectByObj(null);
+		
+		DmProduct dp = new DmProduct();
+		System.out.println("================2================");
+		mapper.selectByObj(dp);
+		
+		dp.setPname("测试");
+		System.out.println("================3================");
+		mapper.selectByObj(dp);
+		
+		dp.setPdesc("测试描述");
+		System.out.println("================4================");
+		mapper.selectByObj(dp);
+		
+		dp.setIsHot(-1);
+		System.out.println("================5================");
+		mapper.selectByObj(dp);
+
+		dp.setIsHot(1);
+		System.out.println("================6================");
+		mapper.selectByObj(dp);
+	}
 	
+	/**
+	 * org.apache.ibatis.exceptions.PersistenceException: 
+	 * Error querying database.  
+	 * Cause: org.apache.ibatis.binding.BindingException: 
+	 * Parameter 'cids' not found. 
+	 * Available parameters are [array]
+	 * 没找到指定参数
+	 */
+	@Test
+	public void test8() throws IOException {
+		DmProductMapper mapper = session.getMapper(DmProductMapper.class);
+		int[] cids = {1,2,3};
+		mapper.selectByCids(cids);
+	}
+	
+	@Test
+	public void test9() throws IOException {
+		DmProductMapper mapper = session.getMapper(DmProductMapper.class);
+		DmProduct dp = new DmProduct();
+		//只修改一个字段(Market_Price)值
+		dp.setId(1);
+		dp.setMarketPrice(885d);
+		mapper.update(dp);
+		//从数据库查出该记录，验证结果
+		DmProduct dbdp = mapper.selectById(1);
+		
+		Assert.assertEquals((Double)885d, dbdp.getMarketPrice());
+		Assert.assertEquals((Double)228d, dbdp.getShopPrice());
+		Assert.assertEquals("韩版连帽加厚毛衣女外套", dbdp.getPname());
+		
+		/**
+		 * 解决方案
+		 * 1.在update之前先将数据库中该记录的值全部查询出来，设置到dp中
+		 * 		每次修改都是更新所有的字段
+		 * 2.动态生成更新SQL，只更新不为null的字段
+		 * 		如果有个字段要改成null值
+		 */
+	}
+	
+	/**
+	 * 作业: 参考一对一关联查询 和 下面的链接, 完成一对多关联查询, 
+	 * 查询业务是: 订单关联订单明细, 即任意查询一个订单, 自动查询出该订单的订单明细记录
+	 */
+	
+	@Test
+	public void test10() throws IOException {
+		DmOrdersMapper dom1 = session.getMapper(DmOrdersMapper.class);
+		DmOrders dos = dom1.selectById(87);
+		DmOrderitem doi = dos.getDmOrderitem();
+		System.out.println(doi);
+		session.close();
+	}
 	
 	
 	

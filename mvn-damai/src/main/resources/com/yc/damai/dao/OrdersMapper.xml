@@ -4,19 +4,33 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   	<!-- namespace是当前接口的命名空间 -->
 	<mapper namespace="com.yc.damai.dao.DmOrderitemMapper">
+		<resultMap type="com.yc.damai.po.DmOrders" id="rmdos">
+			<id column="country_id" property="id"/>
+        	<association property="dmOrderitem" column="oid"
+				select="com.yc.damai.dao.DmOrdersMapper.selectById">
+			</association>
+		</resultMap>
+  		<select id="selectByOid" resultMap="rmdo">
+  			select b.id as orderitem_id,count,total,pid,oid 
+  			from dm_orders a join dm_orderitem b on a.id = b.oid where a.id = #{id}
+  		</select>
 		
+		
+		
+		
+		
+		
+		<!-- 
 		<resultMap type="com.yc.damai.po.DmOrderitem" id="rmdo">
-			<!-- 
-				
-			 -->
+			
 			<association property="dmProduct" column="pid"
 				select="com.yc.damai.dao.DmProductMapper.selectById"></association>
 		</resultMap>
-		
+		-->
 		<!-- 
 			id 是该select标签的唯一标识
 			resultType 标识返回的结果映射到的实体类的类型
-		-->
+		--><!--  
   		<select id="selectAll" resultMap="rmdo">
     		select * from dm_orderitem
   		</select>
@@ -24,8 +38,9 @@
   		<select id="selectById" resultMap="rmdo">
     		select * from dm_orderitem where id = #{id}
   		</select>
-  		
+  		-->
   		<!-- 参数传入格式: #{实体对象的属性名} -->
+  		<!-- 
   		<insert id="insert">
 			insert into dm_orderitem values(null, #{cname}, #{pid})
   		</insert>
@@ -37,6 +52,7 @@
   		<delete id="delete">
   			delete from dm_orderitem where id = #{id}
   		</delete>
+  		 -->
   		
   		
 	</mapper>

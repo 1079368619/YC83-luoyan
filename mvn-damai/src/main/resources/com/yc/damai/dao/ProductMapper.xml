@@ -29,22 +29,100 @@
     		select * from dm_product where id = #{id}
   		</select>
   		
-
+  		<select id="selectByObj" resultMap="rmdp">
+    		select * from dm_product 
+    		<where>
+    			
+    			<!-- test 用于对传入的对象属性值的判断 -->
+    			<if test="pname!=null">
+    				and pname like concat('%', #{pname}, '%')
+    			</if>
+    			
+    			<if test="pdesc!=null">
+    				and pdesc like concat('%', #{pdesc}, '%')
+    			</if>
+    			
+    			<!-- 
+    				isHot 有值(0或1) isHot = 值
+    				isHot 无值 isHot is null
+    				isHot -1  isHot is not null
+    				isHot -2  exists(复杂的子查询)
+    				...
+    			 -->
+    			<choose>
+    				<when test="isHot == null">
+    					and is_hot is null
+    				</when>
+    				<when test="isHot == -1">
+    					and is_hot is not null
+    				</when>
+    				<otherwise>
+    					and is_hot = #{isHot}
+    				</otherwise>
+    			</choose>
+    		</where>
+  		</select>
+  		
+  		<select id="selectByCids" resultMap="rmdp">
+    		select * from dm_product where
+    		<!-- 
+    			cid in (1,3,4)
+    			String sql = "cid in ("
+    			for(cid : cids){
+    				sql += cid
+    			}
+    			sql += ")"
+    		 -->
+    		<foreach item="cid" collection="cids"
+    			open="cid in (" close=")" separator=",">
+    			#{cid}
+    		</foreach>
+  		</select>
+  		
+  		<update id="update">
+  			update dm_product 
+  				<set>
+  					<if test="pname!=null">
+  						pname = #{pname}
+  					</if>
+  					<if test="marketPrice!=null">
+  						market_price = #{marketPrice},
+  					</if>
+  					<if test="shopPrice!=null">
+  						shop_price = #{shopPrice}, 
+  					</if>
+  					<if test="image!=null">
+  						image = #{image},
+  					</if>
+  					<if test="pdesc!=null">
+  						pdesc = #{pdesc},
+  					</if>
+  					<if test="isHot!=null">
+  						is_hot = #{isHot},
+  					</if>
+  					<if test="createtime!=null">
+  						createtime = #{createtime},
+  					</if>
+  					<if test="cid!=null">
+  						cid = #{cid}
+  					</if>
+  				</set>
+  			where id = #{id}
+  		</update>
+  		
+  		
+  		
   		<!-- 作业: 请完成商品表信息增删改查(根据id查) -->
   		<!-- 参数传入格式: #{实体对象的属性名} -->
   		<select id="select" resultType="com.yc.damai.po.DmProduct">
     		select * from dm_product where id = #{id}
   		</select>
   
-  		<insert id="insert1">
+  		<insert id="insert">
 			insert into dm_product values(null, #{pname}, #{marketPrice}, #{shopPrice}, null, #{pdesc}, #{isHot}, null, #{cid})
   		</insert>
   		
-  		<update id="update1">
-  			update dm_product set market_price = #{marketPrice}, shop_price = #{shopPrice}, is_hot = #{isHot}, cid = #{cid} where id = #{id}
-  		</update>
-  		
-  		<delete id="delete1">
+  		<delete id="delete">
   			delete from dm_product where id = #{id}
   		</delete>
   		

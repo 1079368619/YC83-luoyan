@@ -14,8 +14,18 @@ public class DmOrders {
     private Integer uid;
 
     private Integer aid;
+    
+    private DmOrderitem dmOrderitem;
+    
+    public DmOrderitem getDmOrderitem() {
+		return dmOrderitem;
+	}
 
-    public Integer getId() {
+	public void setDmOrderitem(DmOrderitem dmOrderitem) {
+		this.dmOrderitem = dmOrderitem;
+	}
+
+	public Integer getId() {
         return id;
     }
 

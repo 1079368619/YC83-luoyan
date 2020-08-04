@@ -4,11 +4,26 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   	<!-- namespace是当前接口的命名空间 -->
 	<mapper namespace="com.yc.damai.dao.DmCategoryMapper">
+		
+		<!-- 
+			fetchType="lazy" 惰性加载 ==>延迟加载
+		 -->
+		<resultMap type="com.yc.damai.po.DmCategory" id="rmdc">
+			<collection property="children" column="id"
+				select="selectChildren" fetchType="lazy">
+			</collection>
+		</resultMap>
+		
+		<select id="selectChildren" resultType="com.yc.damai.po.DmCategory">
+    		select * from dm_category where pid = #{id}
+  		</select>
+  		
+  		
 		<!-- 
 			id 是该select标签的唯一标识
 			resultType 标识返回的结果映射到的实体类的类型
 		-->
-  		<select id="selectAll" resultType="com.yc.damai.po.DmCategory">
+  		<select id="selectAll" resultMap="rmdc">
     		select * from dm_category
   		</select>
   
