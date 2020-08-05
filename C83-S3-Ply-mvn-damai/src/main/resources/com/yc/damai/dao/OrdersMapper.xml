@@ -3,16 +3,15 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   	<!-- namespace是当前接口的命名空间 -->
-	<mapper namespace="com.yc.damai.dao.DmOrderitemMapper">
-		<resultMap type="com.yc.damai.po.DmOrders" id="rmdos">
-			<id column="country_id" property="id"/>
-        	<association property="dmOrderitem" column="oid"
-				select="com.yc.damai.dao.DmOrdersMapper.selectById">
+	<mapper namespace="com.yc.damai.dao.DmOrdersMapper">
+		<resultMap type="com.yc.damai.po.DmOrders" id="rmdo">
+			<id column="id" property="id"/>
+        	<association property="dmOrderitem" column="id"
+				select="com.yc.damai.dao.DmOrdersMapper.selectByid">
 			</association>
 		</resultMap>
-  		<select id="selectByOid" resultMap="rmdo">
-  			select b.id as orderitem_id,count,total,pid,oid 
-  			from dm_orders a join dm_orderitem b on a.id = b.oid where a.id = #{id}
+  		<select id="selectByid" resultMap="rmdo">
+  			select * from dm_orders where id = #{id}
   		</select>
 		
 		

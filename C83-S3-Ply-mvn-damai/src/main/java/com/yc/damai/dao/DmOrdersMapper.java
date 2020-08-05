@@ -8,7 +8,7 @@ public interface DmOrdersMapper {
 
 	List<DmOrders> selectAll();
 	
-	DmOrders selectById(int id);
+	DmOrders selectByid(int id);
 	
 	int insert(DmOrders dp);
 	

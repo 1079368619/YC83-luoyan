@@ -205,8 +205,8 @@ public class MapperTest {
 	
 	@Test
 	public void test10() throws IOException {
-		DmOrdersMapper dom1 = session.getMapper(DmOrdersMapper.class);
-		DmOrders dos = dom1.selectById(87);
+		DmOrdersMapper dom = session.getMapper(DmOrdersMapper.class);
+		DmOrders dos = dom.selectByid(87);
 		DmOrderitem doi = dos.getDmOrderitem();
 		System.out.println(doi);
 		session.close();
