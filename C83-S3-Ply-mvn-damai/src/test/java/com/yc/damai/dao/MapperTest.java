@@ -19,6 +19,7 @@ import com.yc.damai.po.DmProduct;
 public class MapperTest {
 
 	private SqlSession session;
+	private SqlSession session2;
 	
 	//动态块
 	{
@@ -27,10 +28,11 @@ public class MapperTest {
 			String resource = "mybatis.xml";
 			// 读入配置文件
 			InputStream inputStream = Resources.getResourceAsStream(resource);
-			// 构建会话工厂
+			// 构建会话工厂 ==> 23 设计模式 工厂模式
 			SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 			// 开启会话
 			session = sqlSessionFactory.openSession();
+			session2 = sqlSessionFactory.openSession();
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -61,6 +63,7 @@ public class MapperTest {
 		dc.setCname("测试分类");
 		dc.setPid(1);
 		//session.insert("com.yc.damai.dao.ProductMapper.insert", dc);
+		// 获取映射接口实现类 (核心技术) 动态代理(JDK)
 		DmCategoryMapper mapper = session.getMapper(DmCategoryMapper.class);
 		mapper.insert(dc);
 		//不commit，会话会在关闭自动回滚
@@ -109,10 +112,13 @@ public class MapperTest {
 		DmProduct dp = dpm.selectById(doi.getPid());
 		*/
 		
+		/**
+		 * 测试驱动开发  ==> 先写好所有的测试代码 ==> 再业务代码 
+		 */
 		DmOrderitemMapper dom = session.getMapper(DmOrderitemMapper.class);
 		DmOrderitem doi = dom.selectById(59);
-		//
-		DmProduct dp = doi.getDmProduct();//
+		//java黑科技  ==> 反射 ==> 动态代理技术
+		DmProduct dp = doi.getDmProduct();// 调用 dmProduct 属性的get方法
 		
 		System.out.println(dp);
 		session.close();
@@ -198,11 +204,82 @@ public class MapperTest {
 		 */
 	}
 	
+	@Test
+	public void test10() throws IOException {
+		DmOrdersMapper dosm = session.getMapper(DmOrdersMapper.class);
+		DmOrderitemMapper doim = session.getMapper(DmOrderitemMapper.class);
+		
+		//生成订单业务
+		//定义购买的2个订单明细
+		DmOrderitem doi1 = new DmOrderitem();
+		doi1.setPid(1);
+		doi1.setCount(1);
+		doi1.setTotal(100d);		
+		DmOrderitem doi2 = new DmOrderitem();
+		doi2.setPid(1);
+		doi2.setCount(1);
+		doi2.setTotal(100d);
+		//定义订单主表记录
+		DmOrders dos = new DmOrders();
+		dos.setTotal(300d);
+		dos.setAid(1);
+		dos.setState(1);
+		dos.setUid(1);
+		
+		try {
+			//写订单表
+			dosm.insert(dos);
+			/**
+			 * 在添加订单明细记录时, 必须要获取到订单主表主键值 id
+			 * 二阶段项目, 我在此处进行了一次查询   select max(id) from dm_orders
+			 * 严重的问题: 多线程方式下会产生并发问题
+			 *  MyBatis 可以实现在 insert 的同时获取到数据新生成的 id, 不需要select
+			 */
+			doi1.setOid(dos.getId());
+			doi2.setOid(dos.getId());
+			//写订单明细表
+			doim.insert(doi1);
+			doim.insert(doi2);
+			//提交事务
+			session.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.rollback();
+		} finally {
+			session.close();
+		}
+	}
+	
+	@Test
+	public void test11() throws IOException {
+		DmProductMapper mapper1 = session.getMapper(DmProductMapper.class);
+		DmProductMapper mapper2 = session2.getMapper(DmProductMapper.class);
+		int[] cids = {1000};
+		
+		/**
+		 *  Cache Hit Ratio [com.yc.damai.dao.DmProductMapper]: 0.0
+		 * 	缓存命中:  当前查询结果在缓存出现的概率
+		 */
+		mapper1.selectByCids(cids);
+		//提交
+		//session.commit();
+		session.close();
+		
+		mapper2.selectByCids(cids);
+		
+		mapper2.selectByCids(cids);
+	}
+	
+	@Test
+	public void test12() throws IOException {
+		DmProductMapper mapper = session.getMapper(DmProductMapper.class);
+		mapper.selectById(1);
+	}
+	
+	
 	/**
 	 * 作业: 参考一对一关联查询 和 下面的链接, 完成一对多关联查询, 
 	 * 查询业务是: 订单关联订单明细, 即任意查询一个订单, 自动查询出该订单的订单明细记录
-	 */
-	
 	@Test
 	public void test10() throws IOException {
 		DmOrdersMapper dom = session.getMapper(DmOrdersMapper.class);
@@ -211,9 +288,7 @@ public class MapperTest {
 		System.out.println(doi);
 		session.close();
 	}
-	
-	
-	
+	*/
 	
 	/**
 	//作业: 请完成商品表信息增删改查(根据id查)

@@ -5,15 +5,25 @@
   	<!-- namespace是当前接口的命名空间 -->
 	<mapper namespace="com.yc.damai.dao.DmProductMapper">
 		
+		
+		<cache 
+			eviction="FIFO"
+			size="512" 
+			flushInterval="10000" 
+			readOnly="true">
+		</cache>
+		
+		
+		
 		<!-- 自定义的字段映射 -->
-		<resultMap type="com.yc.damai.po.DmProduct" id="rmdp">
-			<!-- id 用于定义主键映射关系  主键在mybatis有特殊的作业 ==》 缓存 -->
+		<!-- <resultMap type="com.yc.damai.po.DmProduct" id="rmdp">
+			id 用于定义主键映射关系  主键在mybatis有特殊的作业 ==》 缓存
 			<id column="id" property="id"/>
-			<!-- result 用于定义非主键映射关系 -->
+			result 用于定义非主键映射关系
 			<result column="market_price" property="marketPrice"/>
 			<result column="shop_price" property="shopPrice"/>
 			<result column="is_hot" property="isHot"/>
-		</resultMap>
+		</resultMap> -->
 		
 		<!-- 
 			id 是该select标签的唯一标识
@@ -21,13 +31,13 @@
 						简单自动映射
 			resultMap  引用自定义映射
 		-->
-  		<select id="selectAll" resultMap="rmdp">
+  		<!-- <select id="selectAll" resultMap="rmdp">
     		select * from dm_product
   		</select>
   		
   		<select id="selectById" resultMap="rmdp">
     		select * from dm_product where id = #{id}
-  		</select>
+  		</select> -->
   		
   		<select id="selectByObj" resultMap="rmdp">
     		select * from dm_product 

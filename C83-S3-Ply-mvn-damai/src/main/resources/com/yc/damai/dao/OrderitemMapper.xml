@@ -7,7 +7,8 @@
 		
 		<resultMap type="com.yc.damai.po.DmOrderitem" id="rmdo">
 			<!-- 
-				
+				一对一关联查询 
+				select 用于指定完成关联查询的sql的id ==> 命名空间+sql.id
 			 -->
 			<association property="dmProduct" column="pid"
 				select="com.yc.damai.dao.DmProductMapper.selectById"></association>
@@ -27,11 +28,11 @@
   		
   		<!-- 参数传入格式: #{实体对象的属性名} -->
   		<insert id="insert">
-			insert into dm_orderitem values(null, #{cname}, #{pid})
+			insert into dm_orderitem values(null, #{count}, #{total}, #{pid}, #{oid})
   		</insert>
   		
   		<update id="update">
-  			update dm_orderitem set cname = #{cname}, pid = #{pid} where id = #{id}
+  			update dm_orderitem set    where id = #{id}
   		</update>
   		
   		<delete id="delete">

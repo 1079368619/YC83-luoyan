@@ -10,9 +10,10 @@ public interface DmOrderitemMapper {
 	
 	DmOrderitem selectById(int id);
 	
-	int insert(DmOrderitem dp);
+	//
+	int insert(DmOrderitem doi);
 	
-	int update(DmOrderitem dp);
+	int update(DmOrderitem doi);
 
 	int delete(int id);
 
