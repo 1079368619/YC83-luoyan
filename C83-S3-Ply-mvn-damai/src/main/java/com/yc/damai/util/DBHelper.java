@@ -111,7 +111,7 @@ public class DBHelper {
 	public Connection openConnection() {
 		String url = "jdbc:mysql://127.0.0.1/damai?useUnicode=true&characterEncoding=UTF-8"; // 数据库的地址
 		String user = "root"; // 数据的用户
-		String password = "ly19990607";
+		String password = "a";
 		try {
 			if(isAutoCommit) {
 				return DriverManager.getConnection(url, user, password);
