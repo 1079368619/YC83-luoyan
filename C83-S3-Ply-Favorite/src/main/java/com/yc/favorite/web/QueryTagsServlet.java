@@ -21,7 +21,7 @@ public class QueryTagsServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
-		SqlSession session =MyBatisHelper.openSession();
+		SqlSession session = MyBatisHelper.openSession();
 		TagMapper tm = session.getMapper(TagMapper.class);
 		Gson gson =new Gson();
 		String json = gson.toJson(tm.selectAll());

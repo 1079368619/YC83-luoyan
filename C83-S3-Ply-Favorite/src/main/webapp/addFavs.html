@@ -5,21 +5,48 @@
 <title>添加书签</title>
 <script type="text/javascript" src="js/vue.min.js"></script>
 <script type="text/javascript" src="js/axios.min.js"></script>
+<script type="text/javascript" src="js/jquery-3.4.1.js"></script>
 </head>
 <body>
-	<div id="addFavs">
-		名称:<input><br>
-		地址:<input><br>
-		分类:<input><br>
-		描述:<textarea rows="" cols=""></textarea><br>
-		<button>添加</button>
+<!-- 作业:
+1. 实现链接(书签)的添加功能
+2. 实现云图功能( 根据分类的链接数量, 显示分类名称, 多的字体粗, 少的字体细  ) -->
+	<div id="addFavs" align="center">
+		<form action="" method="post">
+			名称:<input type="text" name="flabel" v-model="flabel"><br>
+			地址:<input type="text" name="furl" v-model="furl"><br>
+			分类:<input type="text" name="ftags" v-model="ftags"><br>
+			描述:<textarea type="text" name="fdesc" v-model="fdesc"></textarea><br>
+			<button type="button" class="btn" @click="add()" value="添加">添加</button>
+		</form>
 	</div>
 	
 	<script type="text/javascript">
 		var vue = new Vue({
-			el : "#addFavs"
+			el : "#addFavs",
 			data : {
-				
+				flabel : "",
+				furl : "",
+				ftags : "",
+				fdesc : ""
+			},
+			methods : {
+								
+				add(){
+					var  url="AddFavorite.do";
+					var user={
+							flabel : this.flabel,
+							furl : this.furl,
+							ftags : this.ftags,
+							fdesc : this.fdesc,
+					};
+					$.post(url,user,function(msg){
+						if(msg=='网站收藏成功'){
+							console.info("123");
+							location.href="index.html";
+						}
+					});   
+				}
 			}
 		});
 	</script>
