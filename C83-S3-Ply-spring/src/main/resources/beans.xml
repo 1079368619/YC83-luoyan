@@ -1,17 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="..." class="...">   
-        <!-- collaborators and configuration for this bean go here -->
-    </bean>
+	<bean id="hello" class="com.yc.spring.Hello">
+	</bean>
 
-    <bean id="..." class="...">
-        <!-- collaborators and configuration for this bean go here -->
-    </bean>
-
-    <!-- more bean definitions go here -->
-
+	<bean id="mdao" class="com.yc.spring.dao.OracleUserDao">
+	</bean>
+	
+	<bean id="odao" class="com.yc.spring.dao.MySQLUserDao">
+	</bean>
+	
+	<bean id="p1" class="com.yc.spring.bean.Person">
+		<!--  -->
+		<property name="name" value="武松"></property>
+		<property name="age" value="35"></property>
+		<property name="killeds">
+			<list>
+				<value type="java.lang.String">潘金莲</value>
+				<value>西门庆</value>
+				<value type="java.lang.String">蒋门神</value>
+				<value>null</value>
+				<null></null>
+			</list>
+		</property>
+		<property name="Height" value="185"></property>
+		<property name="alisa" value="行者武松"></property>
+	</bean>
+	
 </beans>
