@@ -12,11 +12,61 @@ public class Person {
 	
 	private List<String> killeds;
 	
+	private Person friend;
 	//身高
 	private int Height;
 	
 	//绰号
 	private String alisa;
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public static Person PersonFactory() {
+		Person p = new Person();
+		p.setAge(40);
+		return p;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public Person PersonFactory1() {
+		Person p = new Person();
+		p.setAge(20);
+		return p;
+	}
+	
+	public Person() {
+		
+	}
+	
+	public Person(int age, String name, String alisa) {
+		super();
+		System.out.println("================ 1 ================");
+		this.name = name;
+		this.age = age;
+		this.alisa = alisa;
+	}
+	
+	public Person(String name, int age, String alisa) {
+		super();
+		System.out.println("================ 2 ================");
+		this.name = name;
+		this.age = age;
+		this.alisa = alisa;
+	}
+	
+
+	public Person getFriend() {
+		return friend;
+	}
+
+	public void setFriend(Person friend) {
+		this.friend = friend;
+	}
 
 	public List<String> getKilleds() {
 		return killeds;

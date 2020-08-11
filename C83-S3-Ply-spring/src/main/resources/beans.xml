@@ -30,4 +30,53 @@
 		<property name="alisa" value="行者武松"></property>
 	</bean>
 	
+	<!--  -->
+	<bean class="com.yc.spring.bean.Person" primary="true">
+		<constuctor-arg name="name" value="李逵" index="1"></constuctor-arg>
+		<constuctor-arg name="alisa" value="黑旋风" index="2"></constuctor-arg>
+		<constuctor-arg name="age" value="33" index="0"></constuctor-arg>
+	</bean>
+	
+	<!--  -->	
+	<bean id="p2" class="com.yc.spring.bean.Person">
+		<property name="name" value="吴用"></property>
+		<property name="age" value="38"></property>
+		<property name="friend" ref="p3"></property>
+	</bean>
+	
+	<bean id="p3" class="com.yc.spring.bean.Person">
+		<property name="name" value="华荣"></property>
+	</bean>
+	
+	<!--  -->	
+	<!--  -->	
+	<bean id="p5" class="com.yc.spring.bean.Person" factory-method="PersonFactory">
+		<property name="name" value="王英"></property>
+	</bean>
+	
+	<!--  -->
+	<bean id="p6" class="com.yc.spring.bean.Person"
+	 factory-method="PersonFactory1" factory-bean="PersonFactory1">
+		<property name="name" value="扈三娘"></property>
+	</bean>	
+	
+	<bean id="personFactory" class="com.yc.spring.bean.Person">
+	</bean>
+	
+	
+	<bean id="hello1" class="com.yc.spring.Hello" scope="prototype">
+	</bean>
+	
+	<bean id="hello2" class="com.yc.spring.Hello" lazy-init="true">
+		<constuctor-arg name="a" value="100"></constuctor-arg>
+	</bean>
+	
+	<!--  -->
+	<bean id="friend" class="com.yc.spring.bean.Person">
+		<property name="name" value="鲁智深"></property>
+	</bean>
+	<bean id="p7" class="com.yc.spring.bean.Person" autowire="byName">
+		<property name="name" value="武松"></property>
+		<property name="age" value="35"></property>
+	</bean>
 </beans>
