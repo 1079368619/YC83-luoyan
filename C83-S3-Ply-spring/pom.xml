@@ -20,7 +20,18 @@
     	<version>5.2.4.RELEASE</version>
 	</dependency>
 
-
+	<dependency>
+    	<groupId>org.springframework</groupId>
+    	<artifactId>spring-aspects</artifactId>
+    	<version>5.2.4.RELEASE</version>
+	</dependency>
+	
+	<dependency>
+    	<groupId>org.springframework</groupId>
+    	<artifactId>spring-test</artifactId>
+    	<version>5.2.4.RELEASE</version>
+	</dependency>
+	
 	<!-- junit测试框架依赖 -->
 	<dependency>
 		<groupId>junit</groupId>

@@ -18,11 +18,15 @@ public class BeanConfig {
 	}
 	
 	/**
-	  @Bean(name="odao") public OracleUserDao getOracleUserDao() { return new
-	                     OracleUserDao(); }
+	  @Bean(name="odao") 
+	  public OracleUserDao getOracleUserDao() { 
+	  		return new OracleUserDao(); 
+	  }
 	  
-	  @Bean(name="mdao") public MySQLUserDao getMySQLUserDao() { return new
-	                     MySQLUserDao(); }
+	  @Bean(name="mdao") 
+	  public MySQLUserDao getMySQLUserDao() { 
+	  		return new MySQLUserDao(); 
+	  }
 	 */
 	
 	@Bean(name="p1")
