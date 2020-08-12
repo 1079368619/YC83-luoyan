@@ -10,8 +10,15 @@ import com.yc.spring.bean.Person;
 import com.yc.spring.dao.MySQLUserDao;
 import com.yc.spring.dao.OracleUserDao;
 
+/**
+ * 注解方式配置IOC容器
+ */
+//@Configuration  // IOC容器配置类的注解   ==> beans.xml
+//@ComponentScan("com.yc.spring") // 扫描该包和它的所有子包
 public class BeanConfig {
 
+	// xml中的每一个bean 对应 java 的一个方法, 这个方法返回 bean 对象
+	// 方法名不有限定,  Bean 注解的name属性对应 <bean> 的 id
 	@Bean(name="hello")
 	public Hello getHello() {
 		return new Hello();
@@ -52,12 +59,18 @@ public class BeanConfig {
 		return p;
 	}
 	
+	/**
+	 * 原型模式
+	 */
 	@Bean("hello1")
-	@Scope(value="prototype")
+	@Scope(value="prototype")// 对应 <bean scope="prototype">
 	public Hello getHello1() {
 		return new Hello();
 	}
 	
+	/**
+	 * 懒加载
+	 */
 	@Bean("hello2")
 	@Lazy
 	public Hello getHello2() {

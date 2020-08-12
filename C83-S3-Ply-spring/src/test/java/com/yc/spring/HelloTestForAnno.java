@@ -31,8 +31,10 @@ private AnnotationConfigApplicationContext ctx;
 		Hello h1 = (Hello) ctx.getBean("hello");
 		Hello h2 = (Hello) ctx.getBean("hello");
 
-		System.out.println(h1 == h2);
+		// h1 和 h2 是同一个对象
+		System.out.println(h1 == h2);// 单例模式
 		
+		// 执行 sayHello 方法
 		h.sayHello();
 		
 		ctx.close();
@@ -59,6 +61,16 @@ private AnnotationConfigApplicationContext ctx;
 	
 	@Test
 	public void test3() {
+		// java.lang.NoSuchMethodException: com.yc.spring.bean.Person.<init>()
+		// 未找到无参数的构造函数
+				
+		/**
+		 * NoUniqueBeanDefinitionException: 
+		 * No qualifying bean of type 'com.yc.spring.bean.Person' available: 
+		 * 		不唯一的bean定义 expected single matching
+		 * bean but found 2: p1,com.yc.spring.bean.Person#0 
+		 * 		应该是1个但是出现2个
+		 */
 		Person p1 = (Person) ctx.getBean(Person.class);
 		Assert.assertEquals("李逵", p1.getName());
 		Assert.assertEquals(33, p1.getAge());
@@ -87,6 +99,10 @@ private AnnotationConfigApplicationContext ctx;
 		Assert.assertEquals(20, p1.getAge());
 	}
 	
+	/**
+	 * bean 的作用域
+	 * 默认情况下, bean的作用域是 单例模式
+	 */
 	@Test
 	public void test7() {
 		System.out.println("==========test7==========");
@@ -106,6 +122,9 @@ private AnnotationConfigApplicationContext ctx;
 
 	}
 	
+	/**
+	 * 懒加载
+	 */
 	@Test
 	public void test8() {
 		System.out.println("==========test8==========");
@@ -114,12 +133,18 @@ private AnnotationConfigApplicationContext ctx;
 		h0.sayHello();
 	}
 	
+	/**
+	 * 生命周期方法
+	 */
 	@Test
 	public void test9() {
 		Hello h0 = (Hello) ctx.getBean("hello3");
 		h0.sayHello();
 	}
 	
+	/**
+	 * 生命周期方法
+	 */
 	@Test
 	public void test10() {
 		Person p7 = (Person) ctx.getBean("p7");

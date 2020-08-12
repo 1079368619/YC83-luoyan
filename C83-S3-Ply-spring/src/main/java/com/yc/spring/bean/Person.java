@@ -20,7 +20,7 @@ public class Person {
 	private String alisa;
 	
 	/**
-	 * 
+	 * 静态的工厂方法
 	 * @return
 	 */
 	public static Person PersonFactory() {
@@ -30,7 +30,7 @@ public class Person {
 	}
 	
 	/**
-	 * 
+	 * 实例的工厂方法
 	 * @return
 	 */
 	public Person PersonFactory1() {
