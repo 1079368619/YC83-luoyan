@@ -17,4 +17,18 @@
 	<mvc:annotation-driven></mvc:annotation-driven>
 	
 	<mvc:default-servlet-handler/>
+	
+	<mvc:resources location="file:/C:/Users/lenovo/Pictures/Saved Pictures/food"
+		mapping="/food/**"></mvc:resources>
+	
+	<bean id="multipartResolver"
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+
+    	<!--  -->
+    	<property name="maxUploadSize" value="10000000"/>
+
+	</bean>
+	
+	
+	
 </beans>
