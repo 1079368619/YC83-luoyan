@@ -1,0 +1,88 @@
+SpringMVC ==> 控制层框架
+
+框架搭建:
+1. pom.xml 引入 SpringMVC 依赖 ==> spring-webmvc
+2. web.xml 配置 转发器Servlet ==> 接收所有的请求, 将请求封装后发送给对应的控制器方法
+3. beans.xml
+	<mvc:annotation-driven>   		注解驱动
+	<mvc:default-servlet-handler/>	静态资源处理
+4. 编写控制器类 ==> POJO类
+	@RestController (控制器方法返回json) 
+	or 
+	@Controller (控制方法返回也页面(视图)名称) ==> 跳转 jsp, html
+	
+	@RequestMapping: 定义在方法之上, 类的上面
+		@GetMapping
+		@PostMapping
+		@PutMapping
+		...
+		
+	@RequestParam  : 定义在方法参数之上, 自定义的参数映射
+		请求参数名 ==> 方法参数名  自动完成
+		
+	SpringMVC 的 参数自动装箱
+		请求参数设置到实体对象中
+		
+		
+SpringMVC配置进阶
+1. 地址映射
+	通配符映射
+	1. ?	1 个字符
+	2. *	1~N个字符
+	3. **	0~N级目录
+	RequestMapping 在类上的定义 用于定义该类所有方法的共同父路径
+	
+2. 控制器方法参数注入
+	头域, 
+	cookie,
+	servlet对象
+	地址参数:  @PathVariable  "user/{参数名}/{参数}/"
+	会话对象: @SessionAttributes(监听),   @SessionAttribute
+	
+
+3. 静态资源映射 + 文件上传
+	可以将静态资源保存到工程外部文件
+	<mvc:resoures location="被映射的目录" mapping="web的路径">
+	文件上传
+	1.添加文件上传解析器
+		<bean id class="apache文件上传组件 or Servlet3.0上传组件">
+		pom.xml ==> 添加相关依赖
+	2.控制器的上传方法添加 @RequestParam MultipartFile file
+	3.<form action="上传方法映射地址" method="post" enctype="multipart/form-data">  
+	
+4. 日期类型处理: 提交参数, 返回日期数据
+	@DateTimeFormat 加载 Date 类型属性上	==> 接收日期参数
+	@JsonFormat 加载 Date 类型属性上		==> 返回json
+	@NumberFormat  对数字格式化
+
+	乱码问题:
+	1. web.xml 中添加过滤器  ==> 解决提交参数中的非西方文字的编码解析
+	2. @RequestMapping中添加 produces="text/html;charset=utf-8"
+				==> 解决控制器返回字符串(html)的 content-type的设置问题
+				==> response.setContentType("text/html;charset=utf-8");
+	
+5. 数据校验
+
+6. 拦截器 ==> 类似 Filter 
+
+7. 异常处理
+
+
+
+
+
+1. 依赖版本的兼容性问题: 4.3.17 ==> 5.2.4
+2. 配置地狱 Spring 替代 EJB
+
+
+Spring boot 致力于简洁，让开发者写更少的配置，程序能够更快的运行和启动。它是下一代javaweb框架，并且它是spring cloud（微服务）的基础。
+如果说Maven整合了所有的jar包，Spring boot整合了所有的框架。并把相关的框架整合成套餐
+
+独立运行：springboot可以以jar包的形式进行独立运行，使用java -jar xx.jar 就可以成功运行项目。
+内嵌容器：内嵌servlet容器，使得我们可以执行运行项目的主程序main函数，使得项目可以快速运行。
+简化依赖：springboot提供了一系列的starter pom用来简化maven依赖。如：常用的spring-boot-starter-web、spring-boot-starter-tomcat
+约定优于配置：在多数情况下，启动一个应用时，无需做太多的配置，应用就能正常启动。
+应用监控：springboot提供了基于HTTP、ssh、telnet对运行时的项目进行监控。
+
+
+
