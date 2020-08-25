@@ -12,5 +12,5 @@ public interface ArticleMapper {
 	public List<Article> selectByNew();
 	
 	@Select("select* from article where id = #{id}")
-	public List<Article> selectById();
+	public Article selectById(int id);
 }

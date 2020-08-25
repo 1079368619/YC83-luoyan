@@ -18,7 +18,8 @@ public class IndexAction {
 	
 	@GetMapping("/")
 	public String index(Model m, @RequestParam(defaultValue = "1")int page) {
-		//
+		// 在执行查询前, 设置分页参数
+		// 注意: 必须是在查询方法执行前 调用分页参数设置
 		PageHelper.startPage(page, 5);
 		m.addAttribute("alist", amapper.selectByNew());
 		return "index";
@@ -26,7 +27,7 @@ public class IndexAction {
 	
 	@GetMapping("article")
 	public String article(Model m, int id) {
-		m.addAttribute("article", amapper.selectById());
+		m.addAttribute("article", amapper.selectById(id));
 		return "article";
 	}
 }
