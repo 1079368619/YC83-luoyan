@@ -25,9 +25,4 @@ public class IndexAction {
 		return "index";
 	}
 	
-	@GetMapping("article")
-	public String article(Model m, int id) {
-		m.addAttribute("article", amapper.selectById(id));
-		return "article";
-	}
 }
