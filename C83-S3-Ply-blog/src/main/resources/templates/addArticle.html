@@ -35,6 +35,7 @@
 <body class="user-select single">
 <header class="header" th:replace="index::.header">
 </header>
+
 <section class="container">
   <div class="content-wrap">
     <div class="content">
@@ -44,8 +45,10 @@
     		标签:<input name="label"><br>
     		内容:<textarea name="content" id="content"></textarea>
     		<script>
-    			CKEDITOR.replace('content');
-    		</script>
+                // Replace the <textarea id="editor1"> with a CKEditor 4
+                // instance, using default configuration.
+                CKEDITOR.replace( 'content' );
+            </script>
     		<button>发表</button>
     	</form>
     </div>
