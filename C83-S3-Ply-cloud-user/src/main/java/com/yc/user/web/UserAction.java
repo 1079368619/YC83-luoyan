@@ -20,7 +20,8 @@ public class UserAction {
 	
 	@GetMapping("order")
 	public String order() {
-		String url="http://127.0.0.1:8002/order";
+		//String url="http://127.0.0.1:8002/order";
+		String url = "http://order/order";
 		String res = restTemplate.getForObject(url, String.class);
 		return res;
 	}
