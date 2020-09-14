@@ -7,7 +7,13 @@ spring:
       name: crzuul
 
 # 解决 zuul 网关报错的问题
-hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
+hystrix:
+   command:
+      default:
+         execution:
+            isolation:
+               thread:
+                  timeoutInMilliseconds: 60000
 ribbon:
   ConnectTimeout: 3000
   ReadTimeout: 60000
