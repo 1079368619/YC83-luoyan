@@ -33,7 +33,7 @@ public class BookAction {
 		CrBookExample cbe = new CrBookExample();
 		cbe.setOrderByClause("id desc");
 		// 分页查询出前12本书
-		PageHelper.startPage(1,12);
+		PageHelper.startPage(1, 12);
 		return cbm.selectByExample(cbe);
 	}
 	

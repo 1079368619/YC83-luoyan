@@ -11,4 +11,6 @@ spring:
       password: a
       driver-class-name: com.mysql.jdbc.Driver
 
-
+logging:
+   level:
+      com.yc.crbook.dao: debug

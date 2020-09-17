@@ -1,10 +1,10 @@
 package com.yc.crbook.bean;
 
-public class CrBook implements java.io.Serializable{
+public class CrBook implements java.io.Serializable {
     
 	private static final long serialVersionUID = 1L;
-
-	private Integer id;
+	
+    private Integer id;
 
     private String name;
 

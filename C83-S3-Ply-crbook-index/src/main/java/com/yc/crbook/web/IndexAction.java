@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.yc.crbook.bean.CrBook;
 import com.yc.crbook.bean.CrShow;
@@ -27,9 +28,19 @@ public class IndexAction {
 		List<CrBook> newBooks = baction.getNewBooks();
 		// 推送给页面
 		m.addAttribute("newBooks", newBooks);
-		
+		// 第一个编辑推荐
 		List<CrShow> recom1 =  baction.getRecom1();
 		m.addAttribute("recom1", recom1);
 		return "index";
+	}
+	
+	@GetMapping(path= {"tologin", "login.html"})
+	public String tologin() {
+		return "login";
+	}
+	
+	@PostMapping("login")
+	public String login() {
+		return "login";
 	}
 }
