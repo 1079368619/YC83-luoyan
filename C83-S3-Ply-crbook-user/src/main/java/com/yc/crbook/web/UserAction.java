@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,17 +20,25 @@ public class UserAction {
 
 	@Resource
 	private CrUserMapper uMapper;
-	
-	@GetMapping("login")
-	public Result login(@RequestBody CrUser user) {
+
+	@PostMapping("login")
+	public Result<CrUser> login(@RequestBody CrUser user) {
 		CrUserExample cue = new CrUserExample();
-		cue.createCriteria().andAccountEqualTo(user.getAccount());
+		cue.createCriteria().andAccountEqualTo(user.getAccount()).andPwdEqualTo(user.getPwd());
 		List<CrUser> list = uMapper.selectByExample(cue);
-		if(list.isEmpty()) {
-			return new Result(0, "用户名或密码错误！");
-		}else {
-			return new Result(1, "登录成功！");
+		if (list.isEmpty()) {
+			return new Result<CrUser>(0, "用户名或密码错误！");
+		} else {
+			// 将登陆成功的用户对象返回
+			return new Result<CrUser>(1, "登录成功！", list.get(0));
 		}
-		
+	}
+	
+	@PostMapping("register")
+	public Result register(@RequestBody CrUser user) {
+		// 带 Selective 的insert 是动态生成 字段, 非 null 字段才会参与 insert
+		// insert into 表名 values ( 所有的字段值 )
+		uMapper.insertSelective(user);
+		return new Result(1, "注册成功!", user);
 	}
 }

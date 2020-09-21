@@ -6,11 +6,13 @@ import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.PageHelper;
 import com.yc.crbook.bean.CrBook;
 import com.yc.crbook.bean.CrBookExample;
+import com.yc.crbook.bean.CrBookWithBLOBs;
 import com.yc.crbook.bean.CrShow;
 import com.yc.crbook.bean.CrShowExample;
 import com.yc.crbook.dao.CrBookMapper;
@@ -19,7 +21,7 @@ import com.yc.crbook.dao.CrShowMapper;
 @RestController
 @RequestMapping("book")
 public class BookAction {
-
+	
 	@Resource
 	private CrBookMapper cbm;
 	
@@ -44,7 +46,12 @@ public class BookAction {
 		CrShowExample cse = new CrShowExample();
 		cse.createCriteria().andPageEqualTo("index").andBoardEqualTo("编辑推荐");
 		// 分页查询出前12本书
-		PageHelper.startPage(1,12);
+		PageHelper.startPage(1, 12);
 		return csm.selectByExample(cse);
+	}
+	
+	@GetMapping("getById")
+	public CrBookWithBLOBs getById( @RequestParam int id){
+		return cbm.selectByPrimaryKey(id);
 	}
 }

@@ -14,12 +14,13 @@ import com.yc.crbook.dao.CrUserMapper;
 
 @SpringBootTest
 class ApplicationTests {
-
+	
 	@Resource
 	CrUserMapper uMapper;
-	
+
 	@Test
 	void contextLoads() {
+		
 		// MyBatis 方向工程的接口的使用
 		
 		// 组合条件查询 <if>  ==> Example 对象构建条件
@@ -33,6 +34,7 @@ class ApplicationTests {
 		List<CrUser> list = uMapper.selectByExample(ue);
 		
 		Assert.assertEquals(1, list.size());
+		
 	}
 
 }

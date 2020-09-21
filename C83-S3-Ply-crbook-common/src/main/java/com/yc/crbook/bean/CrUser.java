@@ -2,9 +2,13 @@ package com.yc.crbook.bean;
 
 import java.util.Date;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
-public class CrUser {
+public class CrUser implements java.io.Serializable{
+    
+	private static final long serialVersionUID = 1L;
+	
     private Integer id;
 
     @NotEmpty(message = "账号不能为空")
@@ -23,6 +27,8 @@ public class CrUser {
 
     private String phone;
 
+    @Email(message="输入正确的邮箱地址")
+    @NotEmpty(message = "邮箱不能为空")
     private String email;
 
     private String school;

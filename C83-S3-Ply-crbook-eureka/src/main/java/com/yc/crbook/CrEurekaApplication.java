@@ -15,10 +15,14 @@ public class CrEurekaApplication implements WebMvcConfigurer {
 	public static void main(String[] args) {
 		SpringApplication.run(CrEurekaApplication.class, args);
 	}
-
+	
+	/**
+	 * 	定义 RestTemplate  Bean
+	 */
 	@LoadBalanced
 	@Bean
 	public RestTemplate getRestTemplate() {
 		return new RestTemplate();
 	}
+
 }

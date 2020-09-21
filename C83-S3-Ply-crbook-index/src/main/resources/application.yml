@@ -5,8 +5,3 @@ server:
 spring:
    application:
       name: crindex
-  
-zuul:
-   routes:
-      crindex: /**
-         

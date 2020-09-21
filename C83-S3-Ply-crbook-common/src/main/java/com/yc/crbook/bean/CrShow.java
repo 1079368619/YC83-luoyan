@@ -1,10 +1,10 @@
 package com.yc.crbook.bean;
 
-public class CrShow implements java.io.Serializable {
+public class CrShow implements java.io.Serializable{
     
 	private static final long serialVersionUID = 1L;
-    
-	private Integer id;
+	
+    private Integer id;
 
     private String page;
 
@@ -20,7 +20,6 @@ public class CrShow implements java.io.Serializable {
      * 关联图书的对象
      */
     private CrBook book;
-    
     /**
      * 关联文章的对象
      */
@@ -42,7 +41,7 @@ public class CrShow implements java.io.Serializable {
 		this.article = article;
 	}
 
-	public Integer getId() {
+    public Integer getId() {
         return id;
     }
 
